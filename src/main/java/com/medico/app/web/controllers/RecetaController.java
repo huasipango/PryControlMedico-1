@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.medico.app.web.models.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.medico.app.web.models.entities.DetalleReceta;
-import com.medico.app.web.models.entities.Medicamento;
-import com.medico.app.web.models.entities.Medico;
-import com.medico.app.web.models.entities.Paciente;
-import com.medico.app.web.models.entities.Receta;
 import com.medico.app.web.models.services.IMedicamentoService;
 import com.medico.app.web.models.services.IMedicoService;
 import com.medico.app.web.models.services.IPacienteService;
@@ -97,7 +93,14 @@ public class RecetaController {
 	public String update(@PathVariable(value="id")Integer id,
 			Model model) {
 		Receta receta = service.findById(id);
-		model.addAttribute("receta",receta);
+		model.addAttribute("receta", receta);
+		model.addAttribute("title","Actualización de receta: " + receta.getPaciente());
+		List<Paciente> pacientes = srvPaciente.findAll();
+		model.addAttribute("pacientes", pacientes);
+		List<Medico> medicos = srvMedico.findAll();
+		model.addAttribute("medicos", medicos);
+		List<Medicamento> medicamentos = srvMedicamento.findByAll();
+		model.addAttribute("medicamentos", medicamentos);
 		return "receta/form";
 	}
 	
@@ -116,6 +119,7 @@ public class RecetaController {
 	public String list(Model model) {
 		List<Receta> recetas = service.findAll();
 		model.addAttribute("recetas", recetas);
+		model.addAttribute("title","Listado de recetas");
 		return "receta/list";		
 	}
 	
