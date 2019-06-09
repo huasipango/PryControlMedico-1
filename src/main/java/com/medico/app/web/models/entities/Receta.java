@@ -33,13 +33,16 @@ public class Receta implements Serializable{
 	@Basic(optional = false)
 	@Column(name = "IDRECETA")
 	private Integer idreceta;
-	
+
 	@Column(name = "FECHA")
 	@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
 	private Date fecha;
-	
+
+	@Column(name = "ACTIVO")
+	private Boolean activo;
+
 	@JoinColumn(name="IDMEDICO", referencedColumnName = "IDPERSONA")
 	@ManyToOne
 	private Medico medico;
@@ -75,6 +78,14 @@ public class Receta implements Serializable{
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 
 	public Medico getMedico() {

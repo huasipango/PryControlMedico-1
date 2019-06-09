@@ -16,37 +16,88 @@
 					<div class="col-sm-4"></div>
 				</div>
 				<hr />
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th><i class="fas fa-user fa-2x"></i>&nbsp;Paciente</th>
-							<th><i class="fas far fa-user-md fa-2x"></i>&nbsp;Médico</th>
-							<th><i class="fas fa-tablets fa-2x"></i>&nbsp;Medicamentos</th>
-							<th><i class="fas fa-calendar-times fa-2x"></i>&nbsp;Fecha</th>
-							<th><a class="btn btn-sm btn-success" th:href="@{/receta/create}" >
-								<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="receta : ${recetas}">
-							<td th:text="${receta.medico.nombre}+ ' ' + ${receta.medico.apellido}"></td>
-							<td th:text="${receta.paciente.nombre}+ ' ' + ${receta.paciente.apellido}"></td>
-							<td th:text="${receta.detalles.size()}"></td>
-							<td th:text="${receta.fecha}"></td>
-							<td>
-								<a class="btn btn-sm btn-warning" title="Editar"
-								   th:href="@{/receta/update/} + ${receta.idreceta}">
-									<i class="fas fa-edit"></i>
-								</a>
-								<a class="btn btn-sm btn-primary" title="Ver"
-								   th:href="@{/receta/retrieve/} + ${receta.idreceta}">
-									<i class="fas fa-eye"></i>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>				
+				<ul class="nav nav-tabs" >
+					<li class="nav-item">
+						<a class="nav-link active" href="#activas" data-toggle="tab"><label>Activas</label></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#inactivas" data-toggle="tab"><label>Inactivas</label></a>
+					</li>
+				</ul>
+				<div class="tab-content" >
+					<div class="tab-pane fade show active" id="activas">
+						<table class="table table-hover">
+							<thead>
+							<tr>
+								<th><i class="fas fa-user fa-2x"></i>&nbsp;Paciente</th>
+								<th><i class="fas far fa-user-md fa-2x"></i>&nbsp;Médico</th>
+								<th><i class="fas fa-tablets fa-2x"></i>&nbsp;Medicamentos</th>
+								<th><i class="fas fa-calendar-times fa-2x"></i>&nbsp;Fecha</th>
+								<th><i class="fas fa-check fa-2x"></i>&nbsp;Activo</th>
+								<th><a class="btn btn-sm btn-success" th:href="@{/receta/create}" >
+									<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr th:each="receta : ${recetas}" th:if="${receta.activo}">
+								<td th:text="${receta.medico.nombre}+ ' ' + ${receta.medico.apellido}"></td>
+								<td th:text="${receta.paciente.nombre}+ ' ' + ${receta.paciente.apellido}"></td>
+								<td th:text="${receta.detalles.size()}"></td>
+								<td th:text="${receta.fecha}"></td>
+								<td th:text="${receta.activo} ? 'ACTIVO' : 'INACTIVO'"/>
+								<td>
+															<a class="btn btn-sm btn-warning" title="Editar"
+															   th:href="@{/receta/update/} + ${receta.idreceta}">
+																<i class="fas fa-edit"></i>
+															</a>
+															<a class="btn btn-sm btn-primary" title="Ver"
+															   th:href="@{/receta/retrieve/} + ${receta.idreceta}">
+																<i class="fas fa-eye"></i>
+															</a>
+														</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="inactivas">
+						<div >
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th><i class="fas fa-user fa-2x"></i>&nbsp;Paciente</th>
+									<th><i class="fas far fa-user-md fa-2x"></i>&nbsp;Médico</th>
+									<th><i class="fas fa-tablets fa-2x"></i>&nbsp;Medicamentos</th>
+									<th><i class="fas fa-calendar-times fa-2x"></i>&nbsp;Fecha</th>
+									<th><i class="fas fa-check fa-2x"></i>&nbsp;Activo</th>
+									<th><a class="btn btn-sm btn-success" th:href="@{/receta/create}" >
+										<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+									</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="receta : ${recetas}" th:unless="${receta.activo}">
+									<td th:text="${receta.medico.nombre}+ ' ' + ${receta.medico.apellido}"></td>
+									<td th:text="${receta.paciente.nombre}+ ' ' + ${receta.paciente.apellido}"></td>
+									<td th:text="${receta.detalles.size()}"></td>
+									<td th:text="${receta.fecha}"></td>
+									<td th:text="${receta.activo} ? 'ACTIVO' : 'INACTIVO'"/>
+									<td>
+														<a class="btn btn-sm btn-warning" title="Editar"
+														   th:href="@{/receta/update/} + ${receta.idreceta}">
+															<i class="fas fa-edit"></i>
+														</a>
+														<a class="btn btn-sm btn-primary" title="Ver"
+														   th:href="@{/receta/retrieve/} + ${receta.idreceta}">
+															<i class="fas fa-eye"></i>
+														</a>
+													</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
