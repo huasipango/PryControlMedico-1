@@ -10,8 +10,8 @@ import com.medico.app.web.models.dao.IMedicamentoDAO;
 import com.medico.app.web.models.entities.Medicamento;
 
 @Service
-public class MedicamentoService implements IMedicamentoService {
 
+public class MedicamentoService implements IMedicamentoService {
 	@Autowired
 	private IMedicamentoDAO dao;
 	

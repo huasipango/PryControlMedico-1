@@ -11,7 +11,10 @@ public interface IDosisService {
 	public void delete(Integer id);
 	
 	public Dosis findById(Integer id);
-	
+
 	public List<Dosis> findAll();
-	
+
+	public List<Dosis> findByIdDetalleReceta(Integer idDetalleReceta);
+
+	public List<Dosis> findNotTakenPills(Integer idDetalleReceta);
 }

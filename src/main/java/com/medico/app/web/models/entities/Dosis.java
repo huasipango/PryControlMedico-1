@@ -1,17 +1,12 @@
 package com.medico.app.web.models.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -27,11 +22,18 @@ public class Dosis implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "IDDOSIS")
 	private Integer iddosis;
-	
-	
+
+    @JoinColumn(name="IDDETALLERECETA", referencedColumnName = "IDDETALLERECETA")//claves foraneas
+    @ManyToOne
+    private DetalleReceta detalleReceta;
+
+    @Transient
+    private String descripcionDetalleReceta;
+
 	@Column(name = "FECHAHORA")
-	@Temporal(TemporalType.DATE)
-	private Calendar fechaHora;
+	@Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy/MM/dd hh:mm:ss")
+	private Date fechaHora;
 	
 	@Column(name = "NUMERO")
 	@Min(value = 1)
@@ -62,15 +64,15 @@ public class Dosis implements Serializable {
 		this.iddosis = iddosis;
 	}
 
-	public Calendar getFechaHora() {
-		return fechaHora;
-	}
+    public Date getFechaHora() {
+        return fechaHora;
+    }
 
-	public void setFechaHora(Calendar fechaHora) {
-		this.fechaHora = fechaHora;
-	}
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
+    }
 
-	public Integer getNumero() {
+    public Integer getNumero() {
 		return numero;
 	}
 
@@ -94,4 +96,23 @@ public class Dosis implements Serializable {
 		this.estado = estado;
 	}
 
+    public DetalleReceta getDetalleReceta() {
+        return detalleReceta;
+    }
+
+    public void setDetalleReceta(DetalleReceta detalleReceta) {
+        this.detalleReceta = detalleReceta;
+    }
+
+    public String getDescripcionDetalleReceta() {
+        switch(this.estado) {
+            case 0:
+                return "Tomada";
+            case 1:
+                return "Pendiente";
+            case 2:
+                return "Por tomar";
+        }
+        return "";
+    }
 }

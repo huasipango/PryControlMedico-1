@@ -75,15 +75,31 @@ public class DetalleReceta implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaInicio;
 	//Fecha y hora en que se suministra al paciente la 1ra dosis
-	
+
+    @JoinColumn(name="IDRECETA", referencedColumnName = "IDRECETA")//claves foraneas
+    @ManyToOne
+    private Receta receta;
+
 	@JoinColumn(name="IDMEDICAMENTO", referencedColumnName = "IDMEDICAMENTO")//claves foraneas
 	@ManyToOne
 	private Medicamento medicamento;
 	
 	@Transient
 	private Integer medicamentoId;
-	
-	@Transient
+
+    public Receta getReceta() {
+        return receta;
+    }
+
+    public void setReceta(Receta receta) {
+        this.receta = receta;
+    }
+
+    public void setDescripcionTipoFrecuencia(String descripcionTipoFrecuencia) {
+        this.descripcionTipoFrecuencia = descripcionTipoFrecuencia;
+    }
+
+    @Transient
 	private String descripcionTipoFrecuencia;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL) //creo la lista de dosis en detalles receta
@@ -226,7 +242,7 @@ public class DetalleReceta implements Serializable {
 			case 3:
 				return "Semanal";
 			case 4:
-				return "Mensual";			
+				return "Mensual";
 		}
 		return "";
 	}

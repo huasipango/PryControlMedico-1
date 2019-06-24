@@ -31,6 +31,12 @@ public class RecetaService implements IRecetaService {
 
 	@Override
 	@Transactional
+	public void setRecetaInactiveStatus(Integer id) {
+		dao.setRecetaInactiveStatus(id);
+	}
+
+	@Override
+	@Transactional
 	public void save(Receta receta) {
 		try {
 			dao.save(receta);

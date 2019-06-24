@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.medico.app.web.models.entities.*;
+import com.medico.app.web.models.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.medico.app.web.models.services.IMedicamentoService;
-import com.medico.app.web.models.services.IMedicoService;
-import com.medico.app.web.models.services.IPacienteService;
-import com.medico.app.web.models.services.IRecetaService;
 
 @Controller
 @RequestMapping(value="/receta")
@@ -43,10 +39,14 @@ public class RecetaController {
 
 	@Autowired
 	private IMedicamentoService srvMedicamento;
+
+	@Autowired
+	private IDetalleRecetaService srvDetalleReceta;
 		
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Receta receta = new Receta();
+		receta.setActivo(true);//Receta está activa al crearse
 		model.addAttribute("title","Registro de nueva receta");
 		model.addAttribute("receta",receta);
 		
@@ -85,7 +85,9 @@ public class RecetaController {
 	public String retrieve(@PathVariable(value="id")Integer id, 
 			Model model) {
 		Receta receta = service.findById(id);
+		List<DetalleReceta> detalleRecetas = srvDetalleReceta.findNotTakenDetalles(id);
 		model.addAttribute("receta",receta);
+		model.addAttribute("detalleRecetas",detalleRecetas);
 		return "receta/card";
 	}
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.medico.app.web.models.dao.IDetalleRecetaDAO;
 import com.medico.app.web.models.entities.DetalleReceta;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DetalleRecetaService implements IDetalleRecetaService {
@@ -15,27 +16,42 @@ public class DetalleRecetaService implements IDetalleRecetaService {
 	private IDetalleRecetaDAO dao;
 	
 	@Override
+	@Transactional
 	public void save(DetalleReceta detalleReceta) {
 		// TODO Auto-generated method stub
 		dao.save(detalleReceta);
 	}
 
 	@Override
+	@Transactional
 	public DetalleReceta findById(Integer id) {
 		// TODO Auto-generated method stub
 		return dao.findById(id).get();
 	}
 
 	@Override
+	@Transactional
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		dao.deleteById(id);
 	}
 
 	@Override
+	@Transactional
 	public List<DetalleReceta> findAll() {
 		// TODO Auto-generated method stub
 		return (List<DetalleReceta>) dao.findAll();
 	}
 
+	@Override
+	@Transactional
+	public List<DetalleReceta> findNotTakenDetalles(Integer idReceta) {
+		return dao.findNotTakenDetalles(idReceta);
+	}
+
+	@Override
+	@Transactional
+	public void setDetalleRecetaInactiveStatus(Integer id) {
+		dao.setDetalleRecetaInactiveStatus(id);
+	}
 }

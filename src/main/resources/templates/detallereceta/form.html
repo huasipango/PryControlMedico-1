@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<header th:replace="layout :: header"></header>
+
+<div class="container">
+    <br />
+    <div class="card col-md-12">
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="content col-sm-1">
+                    <i class="far fa-plus-square fa-2x"></i>
+                </div>
+                <h3 class="card-title col-sm-10" th:text="${title}"></h3>
+            </div>
+            <hr />
+
+            <form th:action="@{/detallereceta/save}" th:object="${detallereceta}" method="post">
+                <div class="form-group row">
+                    <div class="content col-sm-3">
+                        <i class="fas fa-pills"></i> <label
+                            class="h5 col-form-label">&nbsp;Medicamento:</label>
+                    </div>
+                    <div class="content col-sm-6">
+                        <input class="form-control" type="text"
+                               th:field="*{medicamento}"
+                               th:errorclass="'form-control is-invalid'" />
+                        <small class="invalid-feedback"
+                               th:if="${#fields.hasErrors('medicamento')}"
+                               th:errors="*{medicamento}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="content col-sm-3">
+                        <i class="fas fa-tablets"></i> <label
+                            class="h5 col-form-label">&nbsp;Cantidad:</label>
+                    </div>
+                    <div class="content col-sm-6">
+                        <input class="form-control" type="text"
+                               th:field="*{cantidad}"
+                               th:errorclass="'form-control is-invalid'" />
+                        <small class="invalid-feedback"
+                               th:if="${#fields.hasErrors('cantidad')}"
+                               th:errors="*{cantidad}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="content col-sm-3">
+                        <i class="fas fa-prescription-bottle"></i> <label
+                            class="h5 col-form-label">&nbsp;Posolog&iacute;a:</label>
+                    </div>
+                    <div class="content col-sm-6">
+                        <input class="form-control" type="text"
+                               th:field="*{posologia}"
+                               th:errorclass="'form-control is-invalid'" />
+                        <small class="invalid-feedback"
+                               th:if="${#fields.hasErrors('posologia')}"
+                               th:errors="*{posologia}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="content col-sm-3">
+                        <i class="fas fa-check"></i> <label
+                            class="h5 col-form-label">&nbsp;¿Está activo?:</label>
+                    </div>
+                    <div class="content col-sm-6">
+                        <input type="checkbox" th:checked="*{activo}" th:field="*{activo}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="content col-sm-3">
+                        <i class="far fa-hourglass"></i> <label
+                            class="h5 col-form-label">&nbsp;Frecuencia:</label>
+                    </div>
+                    <div class="content col-sm-6">
+                        <input class="form-control" type="text"
+                               th:field="*{frecuencia}"
+                               th:errorclass="'form-control is-invalid'" />
+                        <small class="invalid-feedback"
+                               th:if="${#fields.hasErrors('frecuencia')}"
+                               th:errors="*{frecuencia}"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="content col-sm-3">
+                            <i class="far fa-hourglass"></i> <label
+                                class="h5 col-form-label">&nbsp;Tipo Frecuencia:</label>
+                    </div>
+                        <div class="content col-sm-6">
+                            <input class="form-control" type="text"
+                                   th:field="*{tipoFrecuencia}"
+                                   th:errorclass="'form-control is-invalid'" />
+                            <small class="invalid-feedback"
+                                   th:if="${#fields.hasErrors('tipoFrecuencia')}"
+                                   th:errors="*{tipoFrecuencia}"></small>
+                        </div>
+                </div>
+
+                <hr />
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <a class="btn btn-danger"
+                           th:href="@{/receta/list}">
+                            <i class="fas fa-minus-circle"></i>&nbsp;Cancelar</a>
+                        <button class="btn btn-success" type="submit">
+                            <i class="fas fa-plus-circle"></i>&nbsp;Guardar
+                        </button>
+                    </div>
+                </div>
+                <input type="hidden" th:field="*{iddetalleReceta}" />
+            </form>
+            </div>
+        </div>
+    </div>
+
+
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
