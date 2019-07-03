@@ -25,6 +25,8 @@
 						<th>&nbsp;Cedula</th>
 						<th>&nbsp;Alergias</th>
 						<th>&nbsp;Sangre</th>
+						<th>&nbsp;Creado por</th>
+						<th>&nbsp;Creado en</th>
 						<th>&nbsp;Recetas</th>
 						<th sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-sm btn-success"							
 							th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
@@ -37,6 +39,8 @@
 						<td th:text="${paciente.cedula}"></td>
 						<td th:text="${paciente.alergias}" ></td>
 						<td th:text="${paciente.tipoSangre}" ></td>
+						<td th:text="${paciente.creadoPor}"></td>
+						<td th:text="${paciente.creadoEn}"></td>
 						<td >
 							<a class="btn btn-warning"
 							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">

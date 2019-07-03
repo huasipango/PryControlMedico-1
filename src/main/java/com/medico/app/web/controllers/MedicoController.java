@@ -70,10 +70,15 @@ public class MedicoController {
 		model.addAttribute("title","Listado de medicos");
 		return "medico/list";		
 	}
-	
+
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping(value="/save")
-	public String save(Medico medico, Model model) {
+	public String save(Medico medico, BindingResult result, Model model) {
 		try {
+			if(result.hasErrors()) {
+				return "medico/form";
+			}else
+				System.out.println("Se guardó.");
 			service.save(medico);
 		}
 		catch(Exception ex) {
